@@ -27,20 +27,15 @@ public class App {
     
     public App() {
         listBooks.addAll(saver.loadListBooks());
-//        listReaders.addAll(saver.loadListReaders());
-//        listHistories.addAll(saver.loadListHistories());
+        listReaders.addAll(saver.loadListReaders());
+        listHistories.addAll(saver.loadListHistories());
     }
     
     public void run(){
-
         Scanner scanner = new Scanner(System.in);
         String operation = "0";
         boolean badOperation;
-        
-        
-        
         HistoryProvider historyProvider = new HistoryProvider();
-        
         do{
             do{
                 System.out.println("Выберите операцию:");
@@ -51,6 +46,7 @@ public class App {
                 System.out.println("4. Вернуть книгу");
                 System.out.println("5. Список книг");
                 System.out.println("6. Список читателей");
+                System.out.println("7. Список выданных книг");
                 
                 badOperation = false;
                 operation = scanner.next();
@@ -81,7 +77,6 @@ public class App {
                         }
                         break;
                     case "3":
-                        
                         History history = historyProvider.createHistory(listBooks, listReaders);
                         if(history == null){
                             System.out.println("Не удалось выдать книгу.");
@@ -94,7 +89,6 @@ public class App {
                     case "4":
                         historyProvider.returnBook(listHistories);
                         saver.saveHistories(listHistories);
-                        
                         break;
                     case "5":
                         System.out.println("---- Список книг ----");
@@ -103,9 +97,28 @@ public class App {
                         }
                         break;
                     case "6":
-                        System.out.println("---- Список книг ----");
+                        System.out.println("---- Список читателей ----");
                         for(Reader r : listReaders){
                             System.out.println(r.toString());
+                        }
+                        break;
+                    case "7":
+                        System.out.println("---- Список выданных книг ----");
+                        boolean flagOn = false;
+                        for(History h : listHistories){
+                            if(h.getReturnDate() == null){
+                                System.out.printf("%d. Читатель %s %s читает \"%s%n"
+                                        ,h.getId()
+                                        ,h.getReader().getName()
+                                        ,h.getReader().getLastname()
+                                        ,h.getBook().getTitle()
+                                );
+                                flagOn = true;
+                            }
+                            
+                        }
+                        if(!flagOn){
+                            System.out.println("Нет выданных на руки книг");
                         }
                         break;
                     default:
@@ -117,38 +130,5 @@ public class App {
             if(operation.equals("0"))break;
             
         }while(true);
-        
-//        Book book = new Book();
-//        book.setId(1L);
-//        book.setTitle("Voina i mir");
-//        book.setAuthor("L.Tolstoy");
-//        book.setYear(2010);
-//        System.out.println(book.getId());
-//        System.out.println(book.getTitle());
-//        System.out.println(book.getAuthor());
-//        System.out.println(book.getYear());
-//        System.out.println("Вывод метода toString(): ");
-//        System.out.println(book.toString());
-//        
-//        Book book2 = new Book(2L, "Otsi i deti", "I.Turgenev", 2011);
-//        System.out.println(book2.toString());
-//        
-//        book.setYear(2012);
-//        System.out.println(book.toString());
-//        
-//        Reader reader = new Reader(1L, "Ivan", "Ivanov", 10, 10, 2000);
-//        System.out.println(reader.toString());
-//                
-//        System.out.println("Выдача книги:");
-//        History history = new History();
-//        history.setId(1L);
-//        history.setBook(book);
-//        history.setReader(reader);
-//        history.setTakeOnDate(new Date());
-//        System.out.println(history.toString());
-//        System.out.println("Возврат книги:");
-//        history.setReturnDate(new Date());
-//        System.out.println(history.toString());
-
     }
 }

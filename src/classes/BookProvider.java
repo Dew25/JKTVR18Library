@@ -19,10 +19,12 @@ public class BookProvider {
         System.out.println("------- Создание новой книги -------");
         System.out.println("Название книги: ");
         book.setTitle(scanner.nextLine());
-        System.out.println("Авток книги: ");
+        System.out.println("Автор книги: ");
         book.setAuthor(scanner.nextLine());
         System.out.println("Год издания книги: ");
         book.setYear(new Integer(scanner.nextLine()));
+        System.out.println("Количество экземпляров книги: ");
+        book.setQuantity(Integer.parseInt(scanner.nextLine()));
         System.out.println("Для добавления книги нажмите \"y\"");
         System.out.println("Для отмены добавления книги любой другой символ");
         String flag = scanner.next();

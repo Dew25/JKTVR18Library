@@ -27,16 +27,19 @@ public class Book implements Serializable{
     private String title;
     private String author;
     private int year;
+    private int quantity;
 
     public Book() {
     }
 
-    public Book(Long id, String title, String author, int year) {
-        this.id = id;
+    public Book(String title, String author, int year, int quantity) {
         this.title = title;
         this.author = author;
         this.year = year;
+        this.quantity = quantity;
     }
+
+    
     
     
     public void setId(Long id) {
@@ -70,6 +73,7 @@ public class Book implements Serializable{
                 + ", title=" + title 
                 + ", author=" + author 
                 + ", year=" + year 
+                + ", quantity="+ quantity
                 + '}';
     }
 
@@ -79,6 +83,14 @@ public class Book implements Serializable{
 
     public int getYear() {
         return year;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
     
 }

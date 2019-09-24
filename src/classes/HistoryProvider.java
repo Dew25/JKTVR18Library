@@ -26,11 +26,13 @@ public class HistoryProvider {
         System.out.println("------- Выдать книгу -------");
         System.out.println("Список книг в библиотеке:");
         for(int i=0;i<listBooks.size();i++){
-            System.out.printf("%d. Название: %s. Автор: %s%n"
-                    ,i+1
-                    ,listBooks.get(i).getTitle()
-                    ,listBooks.get(i).getAuthor()
-            );
+            if(listBooks.get(i).getQuantity() > 0){
+                System.out.printf("%d. Название: %s. Автор: %s%n"
+                        ,i+1
+                        ,listBooks.get(i).getTitle()
+                        ,listBooks.get(i).getAuthor()
+                );
+            }
         }
         System.out.println("Список читателей библиотеки:");
         for(int i=0;i<listReaders.size();i++){
@@ -44,6 +46,7 @@ public class HistoryProvider {
         int numBook = scanner.nextInt();
         System.out.print("Выберите номер читателя: ");
         int numReader = scanner.nextInt();
+        history.getBook().setQuantity(history.getBook().getQuantity()-1);
         history.setBook(listBooks.get(numBook - 1));
         history.setReader(listReaders.get(numReader - 1));
         history.setTakeOnDate(new Date());

@@ -41,12 +41,23 @@ public class SaverToBase implements Saver{
 
     @Override
     public void saveReaders(List<Reader> listReaders) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(Reader reader : listReaders){
+            tx.begin();
+                em.persist(reader);
+            tx.commit();
+        }
     }
 
     @Override
     public void saveHistories(List<History> listHistories) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+        for(History h : listHistories){
+            tx.begin();
+            em.persist(h);
+            tx.commit();
+        }
+//        listHistories.clear();
+//        listHistories.addAll(this.loadListHistories());
     }
 
     @Override
@@ -57,12 +68,14 @@ public class SaverToBase implements Saver{
 
     @Override
     public List<Reader> loadListReaders() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("SELECT r FROM Reader r")
+                .getResultList();
     }
 
     @Override
     public List<History> loadListHistories() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("SELECT h FROM History h")
+                .getResultList();
     }
     
 }
