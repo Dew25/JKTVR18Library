@@ -18,11 +18,11 @@ import java.util.Scanner;
  * @author melnikov
  */
 public class HistoryProvider {
-    
-    private History history = new History();
+
     private Scanner scanner = new Scanner(System.in);
-    
+
     public History createHistory(List<Book> listBooks, List<Reader> listReaders){
+        History history = new History();
         System.out.println("------- Выдать книгу -------");
         System.out.println("Список книг в библиотеке:");
         for(int i=0;i<listBooks.size();i++){
@@ -46,8 +46,8 @@ public class HistoryProvider {
         int numBook = scanner.nextInt();
         System.out.print("Выберите номер читателя: ");
         int numReader = scanner.nextInt();
-        history.getBook().setQuantity(history.getBook().getQuantity()-1);
         history.setBook(listBooks.get(numBook - 1));
+        history.getBook().setQuantity(history.getBook().getQuantity()-1);
         history.setReader(listReaders.get(numReader - 1));
         history.setTakeOnDate(new Date());
         return history;
@@ -68,11 +68,13 @@ public class HistoryProvider {
             }
             
         }
-        
         if(flag){
             System.out.print("Выберите номер истории: ");
             int numHistory = scanner.nextInt();
             histories.get(numHistory - 1).setReturnDate(new Date());
+            histories.get(numHistory - 1).getBook()
+                    .setQuantity(histories.get(numHistory - 1)
+                            .getBook().getQuantity()+1);
             System.out.println("Книга возвращена в библиотеку");
         }else{
             System.out.println("Выданных книг нет.");
