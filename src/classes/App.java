@@ -19,13 +19,21 @@ import java.util.Scanner;
  * @author melnikov
  */
 public class App {
-    List<Book> listBooks = new ArrayList<>();
-    List<Reader> listReaders = new ArrayList<>();
-    //Saver saver = new SaverToFile();
-    Saver saver = new SaverToBase();
-    List<History> listHistories = new ArrayList<>();
     
-    public App() {
+    private List<Book> listBooks = new ArrayList<>();
+    private List<Reader> listReaders = new ArrayList<>();
+    private List<History> listHistories = new ArrayList<>();
+    private Saver saver;
+    
+    public App(String flag) {
+        if(flag.equals("base")){
+            saver = new SaverToBase();
+        }else if(flag.equals("file")){
+            saver = new SaverToFile();
+        }else{
+            saver = new SaverToBase();
+        }
+
         listBooks.addAll(saver.loadListBooks());
         listReaders.addAll(saver.loadListReaders());
         listHistories.addAll(saver.loadListHistories());
@@ -36,6 +44,7 @@ public class App {
         String operation = "0";
         boolean badOperation;
         HistoryProvider historyProvider = new HistoryProvider();
+        
         do{
             do{
                 System.out.println("Выберите операцию:");
