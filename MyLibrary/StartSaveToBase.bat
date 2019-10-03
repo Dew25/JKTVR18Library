@@ -1,0 +1,1 @@
+start "" java -cp lib/* -jar JKVTR18Library.jar base
